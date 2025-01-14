@@ -1,0 +1,38 @@
+db.sqlite3
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+myenv/
+venv/
+env/
+
+# Django migrations
+*/migrations/*
+
+# Django secret key (if stored in a .env or settings file)
+*.env
+
+# SQLite database
+db.sqlite3
+
+# Media files (user-uploaded content)
+media/
+
+# Static files (if collected with 'collectstatic')
+static/
+
+# Logs
+*.log
+
+# Configuration files for IDEs
+.vscode/
+.idea/
+
+# Django-pipeline cache
+.pipeline/
+
+# Backup files
+*~
