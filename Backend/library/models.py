@@ -1,16 +1,13 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class User(models.Model):
-    # Auto-incremented primary key
-    id = models.AutoField(primary_key=True)  # Acts as "No."
-
-    # User-specific fields
+    id = models.AutoField(primary_key=True)  
     user_name = models.CharField(max_length=255, unique=True)
     email = models.EmailField()
     password = models.CharField(max_length=255)
 
-    # Role field with predefined choices
     ROLE_CHOICES = [
         ('admin', 'Admin'),
         ('member', 'Member'),
@@ -21,7 +18,6 @@ class User(models.Model):
         default='member'
     )
 
-    # Metadata fields
     is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -33,10 +29,7 @@ class User(models.Model):
     
 
 class BookInventory(models.Model):
-    # Auto-incremented primary key
-    id = models.AutoField(primary_key=True)  # Acts as "No."
-
-    # Book-specific fields
+    id = models.AutoField(primary_key=True) 
     book_name = models.CharField(max_length=255)
     isbn = models.CharField(max_length=4, unique=True)  # A 4 digit ISBN number
     author = models.CharField(max_length=255)
@@ -44,30 +37,26 @@ class BookInventory(models.Model):
     available_qty = models.PositiveIntegerField()
     publication_date = models.DateField()
     rental_days = models.PositiveIntegerField(default=7)  # Default rental period
-
-    # Metadata fields
     is_deleted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+
+
     
 class BookTransaction(models.Model):
-    # Auto-incremented primary key
-    id = models.AutoField(primary_key=True)  # Acts as "No."
-
-    # Foreign keys to related models
+    id = models.AutoField(primary_key=True)  
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(BookInventory, on_delete=models.CASCADE)
-
-    # Transaction details
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     date_of_transaction = models.DateField(auto_now_add=True)
 
-    # Status of the transaction
     STATUS_CHOICES = [
         ('taken', 'Taken'),
         ('returned', 'Returned'),
     ]
+
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='taken')
 
     # Metadata fields
